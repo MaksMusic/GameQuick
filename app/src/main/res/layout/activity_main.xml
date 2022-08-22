@@ -23,6 +23,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:text="старт"
+        android:id="@+id/StartBtn"
         android:background="@color/btn"
         android:layout_width="wrap_content"
         android:textColor="@color/white"

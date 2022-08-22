@@ -2,6 +2,7 @@ package com.music.gamequick
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Lifecycle
@@ -13,60 +14,76 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(),Animation.AnimationListener {
 
-   lateinit var binding:ActivityMainBinding
-    lateinit var animationIn:Animation
-    lateinit var animationOut:Animation
+
+
+lateinit var binding: ActivityMainBinding
+
+
+class MainActivity : AppCompatActivity(), Animation.AnimationListener {
+
+    lateinit var binding: ActivityMainBinding
+    lateinit var animationIn: Animation
+    lateinit var animationOut: Animation
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        animationIn = AnimationUtils.loadAnimation(this,R.anim.alpha_in)
-        animationOut = AnimationUtils.loadAnimation(this,R.anim.alpha_out)
+        animationIn = AnimationUtils.loadAnimation(this, R.anim.alpha_in)
+        animationOut = AnimationUtils.loadAnimation(this, R.anim.alpha_out)
+
         animationIn.setAnimationListener(this)
         animationIn.setAnimationListener(this)
 
+        start()
+
     }
 
-    override fun onAnimationStart(p0: Animation?) {
-        TODO("Not yet implemented")
-    }
+    fun start() {
+        binding.StartBtn.setOnClickListener() {
+            var index =  1
 
-    override fun onAnimationEnd(p0: Animation?) {
-        TODO("Not yet implemented")
-    }
+            lifecycleScope.launch(Dispatchers.IO) {
+                lifecycleScope.launch(Dispatchers.Main) {
 
-    override fun onAnimationRepeat(p0: Animation?) {
-        TODO("Not yet implemented")
-    }
+                    for (i in 1..3) {
+                        //binding.textVopros.setTextSize(30, 30f)
+                        binding.textVopros.text = index.toString()
+                        binding.textVopros.startAnimation(animationIn)
+                        delay(2000)
+                        index++
+                    }
+                    binding.textVopros.text = ""
 
-
-
-    fun start(){
-        binding.heck.setOnClickListener(){
-            for (i in 1..3) {
-
-                binding.textVopros.startAnimation(animationIn)
-                this.binding.textVopros.setTextSize(35,35f)
-                binding.textVopros.text = i.toString()
-
-                lifecycleScope.launch(Dispatchers.IO){
-                    delay(1000)
                 }
             }
+
         }
     }
 
+    override fun onAnimationStart(p0: Animation?) {
 
+    }
 
+    override fun onAnimationEnd(p0: Animation?) {
+        start()
+    }
 
+    override fun onAnimationRepeat(p0: Animation?) {
 
-
-
-
-
-
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
