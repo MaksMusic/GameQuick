@@ -2,7 +2,7 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
 android:duration="1000">
     <alpha
-        android:ForomAlpha = "0.0"
+        android:fromAlpha = "0.0"
         android:toAlpha = "1.0"/>
 
 </set>
